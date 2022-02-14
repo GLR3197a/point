@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .victoire{
+            font-size: 200%;
+            background-color: rgb(0, 0, 0);
+            color: rgb(221, 224, 6);
+            text-align : center;
+            padding : 1em;
+            border : 0.5em solid rgb(255, 0, 0);
+            border-radius: 50%;
+        }
+        #button{
+            font-size: 300%;
+            background-color: rgb(240, 72, 72);
+            color: rgb(182, 149, 5);
+            border: 2px solid #bb0707;
+            border-radius: 50%;
+            margin: 0;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        .entre{
+            background-color: #090058;
+            color: rgb(255, 253, 140);
+        }
+        .egalite{
+            background-color: #090058;
+            color: rgb(255, 153, 0);
+        }
+        .gagnent{
+            background-color: #090058;
+            color: rgb(9, 255, 0);
+        }
+        .perdent{
+            background-color: #090058;
+            color: rgb(255, 0, 0);
+        }
+        .bouton{
+            color: rgb(140, 255, 236);
+            background-color: rgb(83, 83, 83);
+        }
+        .check{
+            background-color: #090058;
+            color: rgb(255, 253, 140);
+        }
+        .table{
+            background-color: #090058;
+            color: rgb(255, 253, 140);
+            table-layout: fixed;
+            width: 100%;
+            text-align: center;
+        }
+        .pritv{
+            background-color: #29eb29;
+            color: rgb(0, 0, 0);
+            table-layout: fixed;
+            width: 100%;
+            text-align: center;
+        }
+        .pritnv{
+            background-color: #eb2929;
+            color: rgb(0, 0, 0);
+            table-layout: fixed;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+    <script defer src="script.js"></script>
+    <title>Calculeur point</title>
+</head>
+<body>
+    <img src="Valeur_atout_belote.jpg" alt="" id="valeur_belote" hidden>
+    <div></div>
+    <center>
+        <form action="" id="choix_jeu">
+            <select name="jeu" id="jeu" class="entre" onchange="choixdujeu()">
+                <option value="">Choisis ton jeu</option>
+                <option value="coinche">Coinche</option>
+                <option value="belote">Belote</option>
+                <option value="tarot">Tarot</option>
+                <option value="rami">Rami</option>
+            </select>
+            <br><br>
+        </form>
+    </center>
+
+    <div class="victoire" id="victoire" hidden></div>
+    
+      
+     
+    <center>
+        <form action="" id="choix_equipe" hidden>
+            <img src="baniere.jfif" width="100%" height="300" id="deco" hidden>
+            <br>
+            <br> 
+            <input type="text" id="equipe_1" placeholder="equipe 1" class="entre">
+            <input type="text" id="equipe_2"placeholder="equipe 2" class="entre">
+            <br><br>
+            <button type="submit" class="bouton">Jouer</button>
+        </form>
+    </center>
+    <center>
+        <form action="" id="rami" hidden>
+            <img src="rami.jfif" width="100%" height="300" id="decorami" hidden>
+            <br>
+            <br> 
+            <input type="text" id="nombre_j" placeholder="nombre de joueur" class="entre">
+            <br><br>
+            <button type="submit" class="bouton">Jouer</button>
+        </form>
+        <form action="" id="joueurs_rami" hidden>
+            <div id="texte_nom">
+                
+            </div>
+            <input type="text" id="nom">
+            <br><br>
+            <button type="submit" class="bouton" id="b">Suivant</button>
+        </form>
+    </center>
+    <center>
+        <form action="" id="tarot" hidden>
+            <img src="tarot.jfif" width="100%" height="300" id="decotarot" hidden>
+            <br>
+            <br> 
+            <select name="jeu" id="nombre_j_t" class="entre" onchange="joueur_tarot()">
+                <option value="">Nombres de joueurs</option>
+                <option value="trois">3</option>
+                <option value="quatre">4</option>
+                <option value="cinq">5</option>
+            </select>
+            <br>
+            <br>
+            <input type="text" id="joueur_1" placeholder="joueur 1" class="entre" hidden>
+            <input type="text" id="joueur_2" placeholder="joueur 2" class="entre" hidden>
+            <input type="text" id="joueur_3" placeholder="joueur 3" class="entre" hidden>
+            <input type="text" id="joueur_4" placeholder="joueur 4" class="entre" hidden>
+            <input type="text" id="joueur_5" placeholder="joueur 5" class="entre" hidden>
+            <br><br>
+            <button type="submit" class="bouton">Jouer</button>
+        </form>
+    </center>
+    
+    
+    <center>
+        <form action="" id="belote" hidden>
+            <select name="equipe" id="equipeb" class="entre">
+                <option value="">Equipe qui a prit</option>
+            </select>
+            <input type="text" id="resultatb" placeholder="resultat" class="entre">
+            <label for="coincher" id="advb" class="check">
+                <input type="checkbox" id="adversaireb" belote class="check" onchange="changementvaleur(point_belote)">
+                Valeur de adversaire
+            </label>
+            <br>
+            <br>
+            <label for="belote" class="check">
+                <input type="checkbox" id="beloteb1" belote>
+                Belote equipe 1
+            </label>
+            <label for="belote" class="check">
+                <input type="checkbox" id="beloteb2" belote>
+                Belote equipe 2
+            </label>
+            <br><br>
+            <button type="submit" class="bouton">Valider</button>
+            <button type="submit" class="bouton" id="retour_belote">retour</button>
+        </form>
+    </center>
+    
+    <center>
+        <form action="" id="coinche" hidden>
+            <select name="equipe" id="equipec" class="entre">
+                <option value="">Equipe qui a prit</option>
+            </select>
+            <select name="contrat" id="contrat" class="entre">
+                <option value="">Contrat prit</option>
+                <option value="80">80</option>
+                <option value="90">90</option>
+                <option value="100">100</option>
+                <option value="110">110</option>
+                <option value="120">120</option>
+                <option value="130">130</option>
+                <option value="140">140</option>
+                <option value="150">150</option>
+                <option value="160">160</option>
+                <option value="capot">Capot</option>
+                <option value="general">Général</option>
+            </select>
+            <input type="text" id="resultatc" placeholder="resultat" class="entre">
+            <label for="coincher" id="adv" class="check">
+                <input type="checkbox" id="adversairec" belote class="check" onchange="changementvaleur(point_coinche)">
+                Valeur de adversaire
+            </label>
+            <br><br>
+            <label for="belote" class="check" >
+                <input type="checkbox" id="belotec11" belote class="check" onchange="ajoutbelote(check_belote_c11,checkb,check_belote_c12)">
+                Belote equipe 1
+            </label>
+            <label for="belote" id="b" class="check" hidden>
+                <input type="checkbox" id="belotec12" belote class="check" onchange="ajoutbelote(check_belote_c12,checkbb,check_belote_c13)">
+                Belote equipe 1
+            </label>
+            <label for="belote" id="bb" class="check" hidden>
+                <input type="checkbox" id="belotec13" belote class="check" onchange="ajoutbelote(check_belote_c13,checkbbb,check_belote_c14)">
+                Belote equipe 1
+            </label>
+            <label for="belote" id="bbb" class="check" hidden>
+                <input type="checkbox" id="belotec14" belote class="check">
+                Belote equipe 1
+            </label>
+            <br><br>
+            <label for="belote" class="check">
+                <input type="checkbox" id="belotec21" belote class="check" onchange="ajoutbelote(check_belote_c21,checkc,check_belote_c22)">
+                Belote equipe 2
+            </label>
+            <label for="belote" id="c" class="check" hidden>
+                <input type="checkbox" id="belotec22" belote class="check" onchange="ajoutbelote(check_belote_c22,checkcc,check_belote_c23)">
+                Belote equipe 2
+            </label>
+            <label for="belote" id ="cc" class="check" hidden>
+                <input type="checkbox" id="belotec23" belote class="check" onchange="ajoutbelote(check_belote_c23,checkccc,check_belote_c24)">
+                Belote equipe 2
+            </label>
+            <label for="belote" id="ccc" class="check" hidden>
+                <input type="checkbox" id="belotec24" belote class="check">
+                Belote equipe 2
+            </label>
+            <br><br>
+            <select name="equipe" id="equipec1" class="entre">
+                <option value="">Equipe qui gagne l'annonce</option>
+            </select>
+            <select name="annonce_1" id="annonce_1" class="entre">
+                <option value="">Annonce Numero 1</option>
+                <option value="20">Suite de 3</option>
+                <option value="50">Suite de 4</option>
+                <option value="100">Suite de 5</option>
+                <option value="carre">Carre de 100</option>
+                <option value="150">Carre de 150</option>
+                <option value="200">Carre de 200</option>
+            </select>
+            <select name="annonce_2" id="annonce_2" class="entre">
+                <option value="">Annonce Numero 2</option>
+                <option value="20">Suite de 3</option>
+                <option value="50">Suite de 4</option>
+                <option value="100">Suite de 5</option>
+                <option value="carre">Carre de 100</option>
+                <option value="150">Carre de 150</option>
+                <option value="200">Carre de 200</option>
+            </select>
+            <br><br>
+            <label for="coincher" class="check" >
+                <input type="checkbox" id="coincher" belote class="check" onchange="ajoutbelote(coincher,scoincher,surcoincher)">
+                coincher
+            </label>
+            <label for="coincher" id="scoincher" class="check"  hidden>
+                <input type="checkbox" id="surcoincher" belote class="check">
+                sur-coincher
+            </label>
+            <br><br>
+            <button type="submit" class="bouton">Valider</button>
+            <button type="submit" class="bouton" id="retour_coinche">retour</button>
+        </form>
+    </center>
+
+    <center>
+        <form action="" id="jeu_tarot" hidden>
+            <select name="equipe" id="joueurt" class="entre" onchange="roi()">
+                <option value="">Equipe qui a prit</option>
+            </select>
+
+            <select name="equipe" id="contrat_tarot" class="entre">
+                <option value="">Contrat prit</option>
+                <option value="petite">Petite</option>
+                <option value="garde">Garde</option>
+                <option value="garde_sans">Garde sans</option>
+                <option value="garde_contre">Garde contre</option>
+            </select>
+
+            <select name="equipe" id="bout" class="entre">
+                <option value="">Nombre de bout</option>
+                <option value="zero">0</option>
+                <option value="un">1</option>
+                <option value="deux">2</option>
+                <option value="trois">3</option>
+            </select>
+            
+            <br>
+            <br>
+
+            <input type="text" id="resultat_tarot" placeholder="resultat" class="entre">
+
+            <select name="roi__" id="appel_du_roi" class="entre" hidden>
+                <option value="">appel du roi</option>
+                <option value="aucun">aucun</option>
+            </select>
+            <br>
+            <br>
+            <label for="coincher" class="check" >
+                <input type="checkbox" id="le_petit" belote class="check" onchange='petitcheck()'>
+                Le petit au bout
+            </label>
+            <select name="equipe" id="qui_le_petit" class="entre" hidden>
+                <option value="">qui a eu le petit au bout</option>
+                <option value="petite">La défense</option>
+                <option value="garde">Le preneur</option>
+            </select>
+            <br>
+            <br>
+            <select name="equipe" id="poignee" class="entre">
+                <option value="">Une poignee</option>
+                <option value="simple_poignee">Simple Poignée</option>
+                <option value="double_poignee">Double Poignée</option>
+                <option value="triple_poignee">Triple Poignée</option>
+            </select>
+            <select name="equipe" id="joueur_poignee" class="entre">
+                <option value="">joueur qui a une poignee</option>
+            </select>
+            <br>
+            <br>
+            <label for="coincher" class="check" >
+                <input type="checkbox" id="grand_chelem" belote class="check" onchange='chelem_test("grand_chelem")'>
+                grand chelem
+            </label>
+            <label for="coincher" class="check" >
+                <input type="checkbox" id="chelem" belote class="check" onchange='chelem_test("chelem")'>
+                chelem non annonce
+            </label>
+            <label for="coincher" class="check" >
+                <input type="checkbox" id="echec_chelem" belote class="check" onchange='chelem_test("echec_chelem")'>
+                echec chelem
+            </label>
+            <br>
+            <br>
+            
+
+            <button type="submit" class="bouton">valider</button>
+            <button type="submit" class="bouton" id="retour_tarot">retour</button>
+        </form>
+    </center>
+
+        <br><br><br>
+        <form action="" id="restart" hidden>
+            <button type="submit" id="button">restart</button>
+        </form>
+        <table class="table" id="tableau" hidden>
+        </table>
+    
+
+</body>
+</html>
